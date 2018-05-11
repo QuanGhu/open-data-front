@@ -1,8 +1,78 @@
 import React from 'react';
+import Api from '../api';
 // import $ from 'jquery';
 
 export default class index extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+          dataset :[],
+          currentPage: 1,
+          todosPerPage: 16
+        };
+    }
+    handleClick(e) {
+        this.setState({
+            currentPage: Number(e.target.id)
+        })
+    }
+    componentWillMount()
+    {
+        this.getDataset();
+    }
+    getDataset()
+    {
+      Api.getNoAuth('datasets/no-auth')
+      .then((response) => {
+          if(response.ok === true) {
+              return response.json()
+          }
+      })
+      .then((jsonData) => {
+          this.setState({
+            dataset: jsonData.data,
+          });
+      })
+      .catch((error) => {
+          console.log(error)
+          // ajax.notifError();
+      })
+    }
   render() {
+    const { todos, currentPage, todosPerPage, dataset } = this.state;
+    const indexOfLastTodo = currentPage * todosPerPage;
+    const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+    const currentTodos = dataset.slice(indexOfFirstTodo, indexOfLastTodo);
+
+    const renderTodos = currentTodos.map((dataset, index) => {
+        return (
+            <article className="event" key={index}>
+                <aside>
+                    <header>
+                        <a href="dataset-detail.html">{dataset.nama}</a>
+                    </header>
+                    <div className="description">
+                        <p>{dataset.keterangan}
+                        </p>
+                    </div>
+                </aside>
+            </article>
+        )
+      });
+  
+      const pageNumbers = [];
+      for (let i = 1; i <= Math.ceil(dataset.length / todosPerPage); i++) {
+        pageNumbers.push(i);
+      }
+  
+      const renderPageNumbers = pageNumbers.map(number => {
+        return (
+            <li key={number} id={number} onClick={this.handleClick.bind(this)} >
+                {number}
+            </li>
+
+        );
+      });
     return (
         <div className="container">
             <div className="row">
@@ -26,98 +96,12 @@ export default class index extends React.Component {
                                 </div>
                             </section>
                             <div className="section-content">
-                                <article className="event">
-                                    <aside>
-                                        <header>
-                                            <a href="dataset-detail.html">Data Kependudukan</a>
-                                        </header>
-                                        <div className="description">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et urna fringilla
-                                                volutpat elit non, tristique lectus. Nam blandit odio nisl, ac malesuada lacus fermentum sit amet.
-                                                Vestibulum vitae aliquet felis, ornare feugiat elit. Nulla varius condimentum elit,
-                                                sed pulvinar leo sollicitudin vel.
-                                            </p>
-                                        </div>
-                                    </aside>
-                                </article>
-                                <article className="event">
-                                    <aside>
-                                        <header>
-                                            <a href="dataset-detail.html">Data Kependudukan</a>
-                                        </header>
-                                        <div className="description">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et urna fringilla
-                                                volutpat elit non, tristique lectus. Nam blandit odio nisl, ac malesuada lacus fermentum sit amet.
-                                                Vestibulum vitae aliquet felis, ornare feugiat elit. Nulla varius condimentum elit,
-                                                sed pulvinar leo sollicitudin vel.
-                                            </p>
-                                        </div>
-                                    </aside>
-                                </article>
-                                <article className="event">
-                                    <aside>
-                                        <header>
-                                            <a href="dataset-detail.html">Data Kependudukan</a>
-                                        </header>
-                                        <div className="description">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et urna fringilla
-                                                volutpat elit non, tristique lectus. Nam blandit odio nisl, ac malesuada lacus fermentum sit amet.
-                                                Vestibulum vitae aliquet felis, ornare feugiat elit. Nulla varius condimentum elit,
-                                                sed pulvinar leo sollicitudin vel.
-                                            </p>
-                                        </div>
-                                    </aside>
-                                </article>
-                                <article className="event">
-                                    <aside>
-                                        <header>
-                                            <a href="dataset-detail.html">Data Kependudukan</a>
-                                        </header>
-                                        <div className="description">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et urna fringilla
-                                                volutpat elit non, tristique lectus. Nam blandit odio nisl, ac malesuada lacus fermentum sit amet.
-                                                Vestibulum vitae aliquet felis, ornare feugiat elit. Nulla varius condimentum elit,
-                                                sed pulvinar leo sollicitudin vel.
-                                            </p>
-                                        </div>
-                                    </aside>
-                                </article>
-                                <article className="event">
-                                    <aside>
-                                        <header>
-                                            <a href="dataset-detail.html">Data Kependudukan</a>
-                                        </header>
-                                        <div className="description">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et urna fringilla
-                                                volutpat elit non, tristique lectus. Nam blandit odio nisl, ac malesuada lacus fermentum sit amet.
-                                                Vestibulum vitae aliquet felis, ornare feugiat elit. Nulla varius condimentum elit,
-                                                sed pulvinar leo sollicitudin vel.
-                                            </p>
-                                        </div>
-                                    </aside>
-                                </article>
-                                <article className="event">
-                                    <aside>
-                                        <header>
-                                            <a href="dataset-detail.html">Data Kependudukan</a>
-                                        </header>
-                                        <div className="description">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et urna fringilla
-                                                volutpat elit non, tristique lectus. Nam blandit odio nisl, ac malesuada lacus fermentum sit amet.
-                                                Vestibulum vitae aliquet felis, ornare feugiat elit. Nulla varius condimentum elit,
-                                                sed pulvinar leo sollicitudin vel.
-                                            </p>
-                                        </div>
-                                    </aside>
-                                </article>
-                                
+                                {renderTodos}
                             </div>
                         </section>
                         <div className="center">
-                            <ul className="pagination">
-                                <li className="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
+                            <ul className="pagination-custom">
+                                {renderPageNumbers}
                             </ul>
                         </div>
                     </div>

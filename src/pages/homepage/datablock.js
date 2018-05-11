@@ -7,7 +7,7 @@ export default class datablock extends React.Component {
     constructor() {
         super()
         this.state = {
-            opd: []
+            dataset: []
         }
     }
 
@@ -16,7 +16,7 @@ export default class datablock extends React.Component {
     }
 
     getField = () => {
-        Api.getNoAuth('opd/no-auth')
+        Api.getNoAuth('datasets/home-page')
 		.then((response) => {
         	if(response.ok === true) {
         		return response.json()
@@ -24,9 +24,8 @@ export default class datablock extends React.Component {
         })
 		.then((jsonData) => {
         	this.setState({
-	            opd: jsonData.data,
+	            dataset: jsonData.data,
             });
-            console.log(this.state.opd)
     	})
     	.catch((error) => {
     		console.log(error)
@@ -34,6 +33,15 @@ export default class datablock extends React.Component {
     	})
     }
   render() {
+
+    var datasetList = this.state.dataset.map( (data, index) => 
+        <div className="col-md-2">
+            <a href="dataset-detail.html">
+                <img src="http://via.placeholder.com/150x150" alt="" className="img-responsive" />
+                <h5 className="text-center">{data.nama}</h5>
+            </a>
+        </div>
+    )
     return (
         <div className="block">
             <div className="container">
@@ -41,20 +49,14 @@ export default class datablock extends React.Component {
                     <div className="col-md-12 col-sm-12">
                         <section className="news-small" id="news-small">
                             <header>
-                                <h2>Data Set</h2>
+                                <h2>Data Set Terbaru</h2>
                             </header>
-                            <div className="section-content">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        <a href="dataset-detail.html">
-                                            <img src="http://via.placeholder.com/150x150" alt="" className="img-responsive" />
-                                            <h5 className="text-center">Data</h5>
-                                        </a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
                         </section>
+                        <div className="section-content">
+                            <div className="row">
+                            {datasetList}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
