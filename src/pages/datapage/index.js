@@ -82,7 +82,7 @@ export default class index extends React.Component {
                 <div className="col-md-12">
                     <div id="page-main">
                         <section className="events" id="events">
-                            <header><h1>Judul Dataset</h1></header>
+                            <header><h1>List Data</h1></header>
                             <section id="event-search">
                                 <div className="search-box">
                                     <header><span className="fa fa-search"></span><h2>Cari Data Disini</h2></header>
