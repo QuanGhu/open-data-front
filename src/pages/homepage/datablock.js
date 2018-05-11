@@ -2,6 +2,7 @@ import React from 'react';
 import Carousel from './carousel';
 import $ from 'jquery';
 import Api from '../api';
+import { Link } from 'react-router-dom';
 
 export default class datablock extends React.Component {
     constructor() {
@@ -36,10 +37,10 @@ export default class datablock extends React.Component {
 
     var datasetList = this.state.dataset.map( (data, index) => 
         <div className="col-md-2">
-            <a href="dataset-detail.html">
+            <Link to={`/dataset/detail/${data.id}`}>
                 <img src="http://via.placeholder.com/150x150" alt="" className="img-responsive" />
                 <h5 className="text-center">{data.nama}</h5>
-            </a>
+            </Link>
         </div>
     )
     return (
