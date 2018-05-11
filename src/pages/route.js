@@ -6,6 +6,8 @@ import Header from '../layout/header';
 import Footer from '../layout/footer';
 
 import Homepage from './homepage/index';
+import Datapage from './datapage/index';
+import Organisationpage from './organisationpage/index';
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
     <Route {...rest} render={props => (
@@ -27,6 +29,8 @@ const Layout = props => (
 const route = () => (
     <Switch>
         <AppRoute exact path="/" layout={Layout} component={Homepage} />
+        <AppRoute exact path="/data/listing" layout={Layout} component={Datapage} />
+        <AppRoute exact path="/organisasi/listing" layout={Layout} component={Organisationpage} />
     </Switch>
 );
 

@@ -21,13 +21,13 @@ export default class header extends React.Component {
                             <nav className="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                                 <ul className="nav navbar-nav">
                                     <li className="active">
-                                        <a href="index.html">Home</a>
+                                        <a href="/">Home</a>
                                     </li>
                                     <li>
-                                        <a href="data-listing.html">Data</a>
+                                        <a href="/data/listing">Data</a>
                                     </li>
                                     <li>
-                                        <a href="organisasi-list.html">Organisasi</a>
+                                        <a href="/organisasi/listing">Organisasi</a>
                                     </li>
                                 </ul>
                             </nav>
