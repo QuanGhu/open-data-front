@@ -1694,6 +1694,43 @@ ul.list-links a:hover {
   border-radius: 0px;
 }
 
+.pagination-custom {
+  margin: 40px 0;
+  padding-left: 0;
+  display: inline-block;
+}
+.pagination-custom li  {
+  position: relative;
+  float: left;
+  display: inline;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  color: #252525;
+  font-size: 14px;
+  margin-left: 10px;
+  padding: 10px 16px;
+  cursor : pointer;
+  margin-bottom: 15px;
+}
+.pagination-custom li:hover {
+  background-color: transparent;
+  border: 2px solid rgba(0, 0, 0, 0.8);
+  color: #252525;
+}
+.pagination-custom li.active {
+  background-color: #012951;
+  border: 2px solid #012951;
+}
+
+.pagination-custom li:first-child, 
+.pagination-custom li:last-child {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+
 .details-accordion {
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
@@ -2509,7 +2546,7 @@ th.header:before {
   position: relative;
   top: 0px;
 }
-.navigation-wrapper .primary-navigation-wrapper header nav .navbar-nav li.active a {
+.navigation-wrapper .primary-navigation-wrapper header nav .navbar-nav li a.active {
   color: #ea6645;
 }
 .navigation-wrapper .primary-navigation-wrapper header nav .navbar-nav li:hover .child-navigation {

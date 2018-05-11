@@ -28,7 +28,7 @@ const Layout = props => (
 
 const route = () => (
     <Switch>
-        <AppRoute exact path="/" layout={Layout} component={Homepage} />
+        <AppRoute exact strict path="/" layout={Layout} component={Homepage} />
         <AppRoute exact path="/data/listing" layout={Layout} component={Datapage} />
         <AppRoute exact path="/organisasi/listing" layout={Layout} component={Organisationpage} />
     </Switch>
