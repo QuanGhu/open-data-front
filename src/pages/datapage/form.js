@@ -1,15 +1,123 @@
 import React from 'react';
+import Api from '../api';
 // import $ from 'jquery';
 
 export default class form extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
+        this.state = {
+            formdetail : [],
+            fieldList : [],
+            valueList : [],
+        }
+    }
+    componentWillMount()
+    {
+        this.getFormDetail();
+        this.getFieldList();
+        this.getValueList();
+    }
+    getFormDetail()
+    {
+        Api.getNoAuth('form/no-auth/'+this.props.match.params.id)
+		.then((response) => {
+        	if(response.ok === true) {
+        		return response.json()
+        	}
+        })
+		.then((jsonData) => {
+        	this.setState({
+	            formdetail: jsonData.data,
+            });
+        })
+    	.catch((error) => {
+    		console.log(error)
+    		// ajax.notifError();
+    	})
+    }
+    getFieldList()
+    {
+        Api.getNoAuth('field/form/no-auth/'+this.props.match.params.id)
+		.then((response) => {
+        	if(response.ok === true) {
+        		return response.json()
+        	}
+        })
+		.then((jsonData) => {
+        	this.setState({
+	            fieldList: jsonData.data,
+            });
+        })
+    	.catch((error) => {
+    		console.log(error)
+    		// ajax.notifError();
+    	})
+    }
+    getValueList()
+    {
+        Api.getNoAuth('values/form/no-auth/'+this.props.match.params.id)
+		.then((response) => {
+        	if(response.ok === true) {
+        		return response.json()
+        	}
+        })
+		.then((jsonData) => {
+        	this.setState({
+	            valueList: jsonData.data,
+            });
+        })
+    	.catch((error) => {
+    		console.log(error)
+    		// ajax.notifError();
+    	})
     }
   render() {
+    var valuesArray = []; 
+
+      var fieldarray = this.state.fieldList.map ( (data, index) =>
+        <th key={index}>{data.nama}</th>
+    
+        )
+    
+        var rowsmap = {}
+        
+        this.state.valueList.forEach( v => {
+            let arr = rowsmap[v.group] || []
+            arr.push(v);
+            rowsmap[v.group] = arr;
+        })
+
+        var rows = Object.keys(rowsmap).map( k => rowsmap[k]);
+
+        valuesArray = rows.filter( v => this.state.fieldList.map( f => f.id).indexOf(v.id_field)).map( (row, i)=> {
+                return ( 
+                
+                <tr key={Date.now()}>
+                    <td>{i + 1}</td>
+                    {
+                        this.state.fieldList.map( (f, i) => {
+                            return row.filter(r => r.id_field === f.id )[0];
+                        }).map(f => {
+                            if(!f) {
+                                return (
+                                    <td key={Date.now()}>kosong</td>
+                                )
+                            }
+                            return (
+                                <td key={f.id}>{f.nama}</td>
+                            )
+                        })
+                    }
+                </tr>
+                    
+                    )
+            }
+        )
+
     return (
         <div className="container">
-            <header><h1>Judul Data</h1></header>
+            <header><h1>{this.state.formdetail.nama}</h1></header>
             <div className="row">
                 <div className="col-md-12">
                     <div id="page-main">
@@ -25,24 +133,25 @@ export default class form extends React.Component {
                                 <section id="course-info">
                                     <header><h2>Informasi Data</h2></header>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et urna fringilla, volutpat elit non,
-                                        tristique lectus. Nam blandit odio nisl, ac malesuada lacus fermentum sit amet. Vestibulum vitae
-                                        aliquet felis, ornare feugiat elit. Nulla varius condimentum elit, sed pulvinar leo sollicitudin vel.
+                                        {this.state.formdetail.keterangan}
                                     </p>
-                                    <p>
-                                        Maecenas sodales, nisl eget dignissim molestie, ligula est consectetur metus, et mollis justo urna
-                                        sit amet nulla. Etiam lectus arcu, pellentesque eu tellus tempor, tristique ultrices leo. Nullam at
-                                        felis mauris. Aenean in neque eu ligula tempor ornare. Mauris tristique in elit a blandit. Nam laoreet
-                                        vulputate nisi eu accumsan. Sed faucibus arcu nec est facilisis dignissim. Fusce risus leo, euismod ut
-                                        cursus vitae, imperdiet id quam. Pellentesque habitant morbi tristique senectus et netus et malesuada
-                                        fames ac turpis egestas. Fusce mollis mi vulputate leo vestibulum, quis scelerisque libero condimentum.
-                                        Praesent rutrum consequat lacus quis suscipit. Proin dapibus mi non semper lobortis.
-                                    </p>
+                                    
                                 </section>
 
                                 <section className="course-schedule">
                                     <header><h2>Data Explorer</h2></header>
-                                    <p className="text-center">Excel or Json Data will be here</p>
+                                    <table className="table table-hover course-list-table tablesorter">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                {fieldarray}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {valuesArray}
+                                        </tbody>
+                                    </table>
+
                                 </section>
 
                             </article>
