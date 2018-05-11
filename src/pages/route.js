@@ -9,6 +9,7 @@ import Homepage from './homepage/index';
 import Datapage from './datapage/index';
 import Organisationpage from './organisationpage/index';
 import Datadetailpage from './datapage/detail';
+import Formdetailpage from './datapage/form';
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
     <Route {...rest} render={props => (
@@ -32,6 +33,7 @@ const route = () => (
         <AppRoute exact strict path="/" layout={Layout} component={Homepage} />
         <AppRoute exact path="/data/listing" layout={Layout} component={Datapage} />
         <AppRoute exact path="/dataset/detail/:id" layout={Layout} component={Datadetailpage} />
+        <AppRoute exact path="/dataset/form/detail/:id" layout={Layout} component={Formdetailpage} />
         <AppRoute exact path="/organisasi/listing" layout={Layout} component={Organisationpage} />
     </Switch>
 );

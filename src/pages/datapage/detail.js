@@ -1,5 +1,6 @@
 import React from 'react';
 import Api from '../api';
+import { Link } from 'react-router-dom';
 // import $ from 'jquery';
 
 export default class detail extends React.Component {
@@ -56,7 +57,7 @@ export default class detail extends React.Component {
   render() {
       var formarray = this.state.formlist.map((data, index) =>
         <tr key={index}>
-            <th className="course-title"><a href="data-detail.html">{data.nama}</a></th>
+            <th className="course-title"><Link to={`/dataset/form/detail/${data.id}`}>{data.nama}</Link></th>
             <th>{data.keterangan}</th>
         </tr>
     )
