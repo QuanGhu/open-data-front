@@ -1,7 +1,7 @@
 import React from 'react';
 import Api from '../api';
 import { Link } from 'react-router-dom';
-// import $ from 'jquery';
+import $ from 'jquery';
 
 export default class detail extends React.Component {
     constructor(props)
@@ -11,6 +11,8 @@ export default class detail extends React.Component {
             datasetDetail : [],
             formlist : []
         }
+        $('body').removeClass();
+        $('body').addClass('page-sub-page');
     }
     componentWillMount()
     {

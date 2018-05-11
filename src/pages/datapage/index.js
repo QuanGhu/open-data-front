@@ -1,7 +1,7 @@
 import React from 'react';
 import Api from '../api';
 import { Link } from 'react-router-dom';
-// import $ from 'jquery';
+import $ from 'jquery';
 
 export default class index extends React.Component {
     constructor() {
@@ -11,6 +11,8 @@ export default class index extends React.Component {
           currentPage: 1,
           todosPerPage: 16
         };
+        $('body').removeClass();
+        $('body').addClass('page-sub-page page-events-listing');
     }
     handleClick(e) {
         this.setState({

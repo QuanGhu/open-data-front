@@ -1,9 +1,11 @@
 import React from 'react';
 import Api from '../api';
-// import $ from 'jquery';
+import $ from 'jquery';
 
 export default class index extends React.Component {
   constructor() {
+        $('body').removeClass();
+        $('body').addClass('page-sub-page page-course-listing-images');
       super();
       this.state = {
         opd :[],

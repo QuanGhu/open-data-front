@@ -1,6 +1,6 @@
 import React from 'react';
 import Api from '../api';
-// import $ from 'jquery';
+import $ from 'jquery';
 
 export default class form extends React.Component {
     constructor(props)
@@ -11,6 +11,8 @@ export default class form extends React.Component {
             fieldList : [],
             valueList : [],
         }
+        $('body').removeClass();
+        $('body').addClass('page-sub-page page-course-detail');
     }
     componentWillMount()
     {

@@ -36,7 +36,7 @@ export default class datablock extends React.Component {
   render() {
 
     var datasetList = this.state.dataset.map( (data, index) => 
-        <div className="col-md-2">
+        <div className="col-md-2" key={index}>
             <Link to={`/dataset/detail/${data.id}`}>
                 <img src="http://via.placeholder.com/150x150" alt="" className="img-responsive" />
                 <h5 className="text-center">{data.nama}</h5>
