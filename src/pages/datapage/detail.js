@@ -82,7 +82,7 @@ export default class detail extends React.Component {
                                     <thead>
                                         <tr>
                                             <th>Nama Data</th>
-                                            <th>Ketarangan Data</th>
+                                            <th>Keterangan Data</th>
                                         </tr>
                                     </thead>
                                     <tbody>

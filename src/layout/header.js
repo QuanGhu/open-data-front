@@ -22,7 +22,7 @@ export default class header extends React.Component {
                             <nav className="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                                 <ul className="nav navbar-nav">
                                     <li>
-                                        <NavLink to="/" activeClassName="active">
+                                        <NavLink exact strict to="/" activeClassName="active">
                                             Home
                                         </NavLink>
                                     </li>
