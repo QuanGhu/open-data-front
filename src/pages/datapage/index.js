@@ -1,5 +1,6 @@
 import React from 'react';
 import Api from '../api';
+import { Link } from 'react-router-dom';
 // import $ from 'jquery';
 
 export default class index extends React.Component {
@@ -49,7 +50,7 @@ export default class index extends React.Component {
             <article className="event" key={index}>
                 <aside>
                     <header>
-                        <a href="dataset-detail.html">{dataset.nama}</a>
+                        <Link to={`/dataset/detail/${dataset.id}`}>{dataset.nama}</Link>
                     </header>
                     <div className="description">
                         <p>{dataset.keterangan}
