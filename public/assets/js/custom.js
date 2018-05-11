@@ -17,13 +17,13 @@ $(document).ready(function($) {
 
 //  Homepage Slider (Flex Slider)
 
-    if ($('.flexslider').length > 0) {
-        $('.flexslider').flexslider({
-            controlNav: false,
-            prevText: "",
-            nextText: ""
-        });
-    }
+    // if ($('.flexslider').length > 0) {
+    //     $('.flexslider').flexslider({
+    //         controlNav: false,
+    //         prevText: "",
+    //         nextText: ""
+    //     });
+    // }
 
 //  Open tab from another page
 
@@ -112,7 +112,15 @@ $(document).ready(function($) {
         stopOnHover: true,
         navigation: true,
         navigationText : false,
-        responsiveBaseWidth: ".image-carousel-slide"
+        responsiveBaseWidth: ".image-carousel-slide",
+        slideSpeed : 300,
+        paginationSpeed : 400,
+   
+        items : 1, 
+        itemsDesktop : false,
+        itemsDesktopSmall : false,
+        itemsTablet: false,
+        itemsMobile : false
         //responsiveBaseWidth: ".author"
     });
 

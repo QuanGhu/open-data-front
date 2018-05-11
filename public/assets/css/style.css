@@ -1387,6 +1387,18 @@ ul.list-links a:hover {
 .image-carousel .owl-buttons .owl-prev:after {
   content: "\f104";
 }
+.image-carousel .owl-item img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.slick-slide img {
+  display: block;
+  height: 500px;
+  width: 100%;
+  object-fit: cover;
+}
 
 /****
   J
