@@ -37,7 +37,7 @@ export default class datablock extends React.Component {
   render() {
 
     var datasetList = this.state.dataset.map( (data, index) => 
-        <div className="col-md-2" key={index}>
+        <div className="col-md-2 custom-height" key={index}>
             <Link to={`/dataset/detail/${data.id}`}>
                 <img src={folderLogo} alt="" className="img-responsive" />
                 <h5 className="text-center">{data.nama}</h5>

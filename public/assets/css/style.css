@@ -4367,3 +4367,12 @@ label.error:before {
     top: inherit;
   }
 }
+
+.custom-height img {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.custom-height {
+  height: 180px;
+}
