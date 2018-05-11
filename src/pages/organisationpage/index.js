@@ -1,6 +1,7 @@
 import React from 'react';
 import Api from '../api';
 import $ from 'jquery';
+import { Link } from 'react-router-dom';
 
 export default class index extends React.Component {
   constructor() {
@@ -56,10 +57,10 @@ export default class index extends React.Component {
             <div className="col-md-3 col-sm-6" key={index}>
                 <article className="course-thumbnail">
                     <figure className="image">
-                        <div className="image-wrapper"><a href="course-detail-v1.html"><img src="assets/img/course-01.jpg"/></a></div>
+                        <div className="image-wrapper"><Link to={`/organisasi/dataset/opd/${opd.id_opd}`}><img src="assets/img/course-01.jpg"/></Link></div>
                     </figure>
                     <div className="description">
-                        <a href="data-listing.html"><h3>{opd.akronim_opd}</h3></a>
+                        <Link to={`/organisasi/dataset/opd/${opd.id_opd}`}><h3>{opd.akronim_opd}</h3></Link>
                     </div>
                 </article>
             </div>
