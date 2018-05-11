@@ -2493,6 +2493,12 @@ th.header:before {
   position: relative;
   z-index: 1;
 }
+@media(min-width: 1280px) {
+  .navigation-wrapper .primary-navigation-wrapper header .navbar-brand img {
+    max-height: 100px;
+    margin-top: -26px;
+  }
+}
 .navigation-wrapper .primary-navigation-wrapper header .navbar-brand:before {
   -moz-transition: 0.4s;
   -o-transition: 0.4s;
@@ -4131,7 +4137,7 @@ label.error:before {
     height: 90px !important;
   }
   .navigation-wrapper .primary-navigation-wrapper header .navbar-brand img {
-    max-width: 150px;
+    max-width: 50px;
   }
   .navigation-wrapper .primary-navigation-wrapper header .navbar-collapse {
     -moz-box-shadow: none;
