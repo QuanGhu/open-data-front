@@ -51,7 +51,7 @@ export default class datablock extends React.Component {
                     <div className="col-md-12 col-sm-12">
                         <section className="news-small" id="news-small">
                             <header>
-                                <h2>Data Set Terbaru</h2>
+                                <h2>List Data Terbaru</h2>
                             </header>
                         </section>
                         <div className="section-content">
