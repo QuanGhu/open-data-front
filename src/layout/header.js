@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../logo-primary.jpeg'
 export default class header extends React.Component {
     render() {
@@ -16,7 +16,7 @@ export default class header extends React.Component {
                                     <span className="icon-bar"></span>
                                 </button>
                                 <div className="navbar-brand nav" id="brand">
-                                    <a href="index.html"><img src={logo} className="img-responsive" /></a>
+                                    <Link to={`/`}><img src={logo} className="img-responsive" /></Link>
                                 </div>
                             </div>
                             <nav className="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">

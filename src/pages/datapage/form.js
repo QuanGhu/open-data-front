@@ -83,7 +83,6 @@ export default class form extends React.Component {
         var columns = this.state.fieldList.map ( (data, index) =>
             columnArray.push(data.nama)
         )
-        console.log(columnArray);
 
         var rowsmap = {}
         var valuesArray = []; 
@@ -97,28 +96,33 @@ export default class form extends React.Component {
         var rows = Object.keys(rowsmap).map( k => rowsmap[k]);
 
         var rowsArr = [];
+        var testArr = [];
 
         valuesArray = rows.filter( v => this.state.fieldList.map( f => f.id).indexOf(v.id_field)).map( (row, i)=> {
                 return ( 
-                    this.state.fieldList.map( (f, i) => {
-                        return row.filter(r => r.id_field === f.id )[0];
-                    }).map(f => {
-                        if(!f) {
+                    rowsArr.push (
+                        this.state.fieldList.map( (f, i) => {
+                            return row.filter(r => r.id_field === f.id )[0];
+                        }).map(f => {
+                            if(!f) {
+                                return (
+                                  "kosong"
+                                )
+                            }
                             return (
-                                rowsArr.push("kosong")
+                                f.nama
                             )
-                        }
-                        return (
-                            rowsArr.push(f.nama)
-                        )
-                    })
+                        })
+                    
                     )
+                )
             }
         )
-        console.log(rowsArr);
+        console.log([rowsArr]);
         var doc = new jsPDF()
-        doc.autoTable(columnArray, [rowsArr]);
-        doc.save('test.pdf');
+        var fileName = this.state.formdetail.nama
+        doc.autoTable(columnArray, rowsArr);
+        doc.save(fileName + '-data-set.pdf');
     }
   render() {
     var valuesArray = []; 
