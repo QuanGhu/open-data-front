@@ -1,6 +1,8 @@
 import React from 'react';
 import Api from '../api';
 import $ from 'jquery';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 export default class form extends React.Component {
     constructor(props)
@@ -74,6 +76,50 @@ export default class form extends React.Component {
     		// ajax.notifError();
     	})
     }
+    downloadData()
+    {
+
+        var columnArray = [];
+        var columns = this.state.fieldList.map ( (data, index) =>
+            columnArray.push(data.nama)
+        )
+        console.log(columnArray);
+
+        var rowsmap = {}
+        var valuesArray = []; 
+        
+        this.state.valueList.forEach( v => {
+            let arr = rowsmap[v.group] || []
+            arr.push(v);
+            rowsmap[v.group] = arr;
+        })
+
+        var rows = Object.keys(rowsmap).map( k => rowsmap[k]);
+
+        var rowsArr = [];
+
+        valuesArray = rows.filter( v => this.state.fieldList.map( f => f.id).indexOf(v.id_field)).map( (row, i)=> {
+                return ( 
+                    this.state.fieldList.map( (f, i) => {
+                        return row.filter(r => r.id_field === f.id )[0];
+                    }).map(f => {
+                        if(!f) {
+                            return (
+                                rowsArr.push("kosong")
+                            )
+                        }
+                        return (
+                            rowsArr.push(f.nama)
+                        )
+                    })
+                    )
+            }
+        )
+        console.log(rowsArr);
+        var doc = new jsPDF()
+        doc.autoTable(columnArray, [rowsArr]);
+        doc.save('test.pdf');
+    }
   render() {
     var valuesArray = []; 
 
@@ -128,7 +174,7 @@ export default class form extends React.Component {
                                 <section id="course-header">
                                     <hr/>
                                     <div className="course-count-down">
-                                        <a href="#" className="btn" id="btn-course-join-bottom">Download Data</a>
+                                        <a href="#" className="btn" id="btn-course-join-bottom" onClick={ () => this.downloadData()} >Download Data</a>
                                     </div>
                                 </section>
 
