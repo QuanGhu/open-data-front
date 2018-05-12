@@ -4378,3 +4378,16 @@ label.error:before {
 .custom-height {
   height: 180px;
 }
+
+.berita-carousel {
+  position: relative;
+}
+
+.berita-carousel .berita-title {
+  background: #0000009e;
+  padding: 20px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+}

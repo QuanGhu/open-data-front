@@ -38,7 +38,14 @@ export default class carousel extends React.Component {
       var baseurl = 'http://tanjungpinangkota.go.id/images/berita/big/'
       var baseurlberita = 'http://tanjungpinangkota.go.id/berita/'
       var carousel = this.state.newsList.map( (data, index) =>
-            <div key={index} ><a href={baseurlberita+data.id_berita} target="__blank"><img src={baseurl+data.gambar} alt=""/></a></div>
+            <div key={index} className="berita-carousel">
+                <a href={baseurlberita+data.id_berita} target="__blank">
+                    <img src={baseurl+data.gambar} alt=""/>
+                </a>
+                <div className="berita-title">
+                    <h3>{data.judul_berita}</h3>
+                </div>
+            </div>
     )
     return (
         <div id="homepage-carousel">
