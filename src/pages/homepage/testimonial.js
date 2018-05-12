@@ -31,7 +31,7 @@ export default class testimonial extends React.Component {
     	})
     }
   render() {
-    var basePhotoUrl = 'http://185.201.8.164:3001/uploads/'
+    var basePhotoUrl = 'http://185.201.8.164:3001/'
     var testiarray = this.state.testilist.map( (data, index) => 
         <blockquote key={index}>
             <figure className="author-picture">

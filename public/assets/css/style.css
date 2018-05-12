@@ -35,6 +35,8 @@ blockquote figure img {
   -webkit-border-radius: 50%;
   border-radius: 50%;
   border: 3px solid #fff;
+  width: 100px;
+  height: 100px;
 }
 blockquote article {
   padding-left: 40px;
