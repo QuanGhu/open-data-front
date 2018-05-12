@@ -76,9 +76,9 @@ export default class form extends React.Component {
     		// ajax.notifError();
     	})
     }
-    downloadData()
+    downloadData(e)
     {
-
+        e.preventDefault();
         var columnArray = [];
         var columns = this.state.fieldList.map ( (data, index) =>
             columnArray.push(data.nama)
@@ -118,7 +118,6 @@ export default class form extends React.Component {
                 )
             }
         )
-        console.log([rowsArr]);
         var doc = new jsPDF('p','px','a4')
         var fileName = this.state.formdetail.nama
         doc.setFontSize('16');
