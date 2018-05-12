@@ -84,21 +84,21 @@ export default class form extends React.Component {
             columnArray.push(data.nama)
         )
 
-        var rowsmap = {}
-        var valuesArray = []; 
+        var rowmap = {}
+        var valueArray = []; 
         
         this.state.valueList.forEach( v => {
-            let arr = rowsmap[v.group] || []
+            let arr = rowmap[v.group] || []
             arr.push(v);
-            rowsmap[v.group] = arr;
+            rowmap[v.group] = arr;
         })
 
-        var rows = Object.keys(rowsmap).map( k => rowsmap[k]);
+        var row = Object.keys(rowmap).map( k => rowmap[k]);
 
         var rowsArr = [];
         var testArr = [];
 
-        valuesArray = rows.filter( v => this.state.fieldList.map( f => f.id).indexOf(v.id_field)).map( (row, i)=> {
+        valueArray = row.filter( v => this.state.fieldList.map( f => f.id).indexOf(v.id_field)).map( (row, i)=> {
                 return ( 
                     rowsArr.push (
                         this.state.fieldList.map( (f, i) => {
@@ -119,11 +119,17 @@ export default class form extends React.Component {
             }
         )
         console.log([rowsArr]);
-        var doc = new jsPDF()
+        var doc = new jsPDF('p','px','a4')
         var fileName = this.state.formdetail.nama
-        doc.autoTable(columnArray, rowsArr);
+        doc.setFontSize('16');
+        doc.text(this.state.formdetail.nama + ' - ' + this.state.formdetail.dataset.nama, 30, 20, '','','center')
+        doc.setFontSize('12')
+        doc.autoTable(columnArray, rowsArr, {
+            styles: {overflow: 'linebreak', font: 'arial', fontSize: 10}
+        });
         doc.save(fileName + '-data-set.pdf');
     }
+    
   render() {
     var valuesArray = []; 
 
@@ -178,7 +184,7 @@ export default class form extends React.Component {
                                 <section id="course-header">
                                     <hr/>
                                     <div className="course-count-down">
-                                        <a href="#" className="btn" id="btn-course-join-bottom" onClick={ () => this.downloadData()} >Download Data</a>
+                                        <a href="#" className="btn" id="btn-course-join-bottom" onClick={ this.downloadData.bind(this)} >Download Data</a>
                                     </div>
                                 </section>
 
