@@ -48,24 +48,6 @@ export default class form extends React.Component {
     		// ajax.notifError();
     	})
     }
-    counterVisitor()
-    {
-        Api.getNoAuth('dataset-counter/'+this.state.formdetail.dataset.id)
-		.then((response) => {
-        	if(response.ok === true) {
-        		return response.json()
-        	}
-        })
-		.then((jsonData) => {
-        	this.setState({
-	            downloadTime: jsonData.data.counter,
-            });
-        })
-    	.catch((error) => {
-    		console.log(error)
-    		// ajax.notifError();
-    	})
-    }
     getFormDetail()
     {
         Api.getNoAuth('form/no-auth/'+this.props.match.params.id)
