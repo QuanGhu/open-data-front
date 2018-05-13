@@ -56,10 +56,26 @@ export default class detail extends React.Component {
     		// ajax.notifError();
     	})
     }
+    linkOnClick(id)
+    {
+        Api.postNoAuth('form-counter/'+id)
+		.then((response) => {
+        	if(response.ok === true) {
+        		return response.json()
+        	}
+        })
+		.then((jsonData) => {
+        	console.log('visited');
+        })
+    	.catch((error) => {
+    		console.log(error)
+    		// ajax.notifError();
+    	})
+    }
   render() {
       var formarray = this.state.formlist.map((data, index) =>
         <tr key={index}>
-            <th className="course-title"><Link to={`/dataset/form/detail/${data.id}`}>{data.nama}</Link></th>
+            <th className="course-title"><Link to={`/dataset/form/detail/${data.id}`} onClick={this.linkOnClick.bind(this, data.id)}>{data.nama}</Link></th>
             <th>{data.keterangan}</th>
         </tr>
     )

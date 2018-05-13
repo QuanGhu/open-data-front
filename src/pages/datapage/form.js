@@ -13,10 +13,15 @@ export default class form extends React.Component {
             fieldList : [],
             valueList : [],
             downloadTime : "",
-            viewTiem : ""
+            viewTime : ""
         }
         $('body').removeClass();
         $('body').addClass('page-sub-page page-course-detail');
+    }
+    componentWillUpdate()
+    {
+        this.getVisitorCounter();
+        
     }
     componentWillMount()
     {
@@ -26,6 +31,24 @@ export default class form extends React.Component {
         
     }
     getDownloadTime()
+    {
+        Api.getNoAuth('dataset-counter/'+this.state.formdetail.dataset.id)
+		.then((response) => {
+        	if(response.ok === true) {
+        		return response.json()
+        	}
+        })
+		.then((jsonData) => {
+        	this.setState({
+	            downloadTime: jsonData.data.counter,
+            });
+        })
+    	.catch((error) => {
+    		console.log(error)
+    		// ajax.notifError();
+    	})
+    }
+    counterVisitor()
     {
         Api.getNoAuth('dataset-counter/'+this.state.formdetail.dataset.id)
 		.then((response) => {
@@ -112,6 +135,24 @@ export default class form extends React.Component {
 		.then((jsonData) => {
         	this.setState({
 	            downloadTime: jsonData.data.counter,
+            });
+        })
+    	.catch((error) => {
+    		console.log(error)
+    		// ajax.notifError();
+    	})
+    }
+    getVisitorCounter()
+    {
+        Api.getNoAuth('form-counter/'+this.props.match.params.id)
+		.then((response) => {
+        	if(response.ok === true) {
+        		return response.json()
+        	}
+        })
+		.then((jsonData) => {
+        	this.setState({
+	            viewTime: jsonData.data.counter,
             });
         })
     	.catch((error) => {
@@ -228,7 +269,7 @@ export default class form extends React.Component {
                                     <hr/>
                                     <div className="course-count-down">
                                         <a href="#" className="btn" id="btn-course-join-bottom" onClick={ this.downloadData.bind(this)} >Download Data</a>
-                                        <p>Data ini sudah didownload {this.state.downloadTime } kali dan dilihat 1 kali </p>
+                                        <p>Data ini sudah didownload {this.state.downloadTime } kali dan dilihat {this.state.viewTime} kali </p>
                                     </div>
                                 </section>
 
