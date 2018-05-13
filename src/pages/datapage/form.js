@@ -12,6 +12,8 @@ export default class form extends React.Component {
             formdetail : [],
             fieldList : [],
             valueList : [],
+            downloadTime : "",
+            viewTiem : ""
         }
         $('body').removeClass();
         $('body').addClass('page-sub-page page-course-detail');
@@ -21,6 +23,25 @@ export default class form extends React.Component {
         this.getFormDetail();
         this.getFieldList();
         this.getValueList();
+        
+    }
+    getDownloadTime()
+    {
+        Api.getNoAuth('dataset-counter/'+this.state.formdetail.dataset.id)
+		.then((response) => {
+        	if(response.ok === true) {
+        		return response.json()
+        	}
+        })
+		.then((jsonData) => {
+        	this.setState({
+	            downloadTime: jsonData.data.counter,
+            });
+        })
+    	.catch((error) => {
+    		console.log(error)
+    		// ajax.notifError();
+    	})
     }
     getFormDetail()
     {
@@ -34,6 +55,9 @@ export default class form extends React.Component {
         	this.setState({
 	            formdetail: jsonData.data,
             });
+        })
+        .then( () => {
+            this.getDownloadTime();
         })
     	.catch((error) => {
     		console.log(error)
@@ -76,9 +100,29 @@ export default class form extends React.Component {
     		// ajax.notifError();
     	})
     }
+
+    counter()
+    {
+        Api.postNoAuth('dataset-counter/'+this.state.formdetail.dataset.id)
+		.then((response) => {
+        	if(response.ok === true) {
+        		return response.json()
+        	}
+        })
+		.then((jsonData) => {
+        	this.setState({
+	            downloadTime: jsonData.data.counter,
+            });
+        })
+    	.catch((error) => {
+    		console.log(error)
+    		// ajax.notifError();
+    	})
+    }
     downloadData(e)
     {
         e.preventDefault();
+        this.counter();
         var columnArray = [];
         var columns = this.state.fieldList.map ( (data, index) =>
             columnArray.push(data.nama)
@@ -184,6 +228,7 @@ export default class form extends React.Component {
                                     <hr/>
                                     <div className="course-count-down">
                                         <a href="#" className="btn" id="btn-course-join-bottom" onClick={ this.downloadData.bind(this)} >Download Data</a>
+                                        <p>Data ini sudah didownload {this.state.downloadTime } kali dan dilihat 1 kali </p>
                                     </div>
                                 </section>
 
