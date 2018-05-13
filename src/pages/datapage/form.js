@@ -32,7 +32,7 @@ export default class form extends React.Component {
     }
     getDownloadTime()
     {
-        Api.getNoAuth('dataset-counter/'+this.state.formdetail.dataset.id)
+        Api.getNoAuth('dataset-counter/dataset/'+this.state.formdetail.dataset.id)
 		.then((response) => {
         	if(response.ok === true) {
         		return response.json()
@@ -133,9 +133,7 @@ export default class form extends React.Component {
         	}
         })
 		.then((jsonData) => {
-        	this.setState({
-	            downloadTime: jsonData.data.counter,
-            });
+        	this.getDownloadTime()
         })
     	.catch((error) => {
     		console.log(error)
@@ -144,7 +142,7 @@ export default class form extends React.Component {
     }
     getVisitorCounter()
     {
-        Api.getNoAuth('form-counter/'+this.props.match.params.id)
+        Api.getNoAuth('form-counter/form/'+this.props.match.params.id)
 		.then((response) => {
         	if(response.ok === true) {
         		return response.json()
