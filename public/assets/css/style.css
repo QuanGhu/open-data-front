@@ -4375,6 +4375,13 @@ label.error:before {
   margin: 0 auto;
 }
 
+@media(max-width: 767px) {
+  .custom-height img {
+    width: 25%;
+    margin: 0 auto;
+  }
+}
+
 .custom-height {
   height: 180px;
 }
