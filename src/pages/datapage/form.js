@@ -18,20 +18,19 @@ export default class form extends React.Component {
         $('body').removeClass();
         $('body').addClass('page-sub-page page-course-detail');
     }
-    componentWillUpdate()
-    {
-        this.getVisitorCounter();
-        
-    }
     componentWillMount()
     {
+        setTimeout(() => {
+            this.getVisitorCounter();            
+            this.getValueList();
+        }, 1000)
         this.getFormDetail();
         this.getFieldList();
-        this.getValueList();
         
     }
     getDownloadTime()
     {
+        console.log(1)
         Api.getNoAuth('dataset-counter/dataset/'+this.state.formdetail.dataset.id)
 		.then((response) => {
         	if(response.ok === true) {
@@ -50,6 +49,8 @@ export default class form extends React.Component {
     }
     getFormDetail()
     {
+        console.log(2)
+        
         Api.getNoAuth('form/no-auth/'+this.props.match.params.id)
 		.then((response) => {
         	if(response.ok === true) {
@@ -71,6 +72,7 @@ export default class form extends React.Component {
     }
     getFieldList()
     {
+        console.log(3)
         Api.getNoAuth('field/form/no-auth/'+this.props.match.params.id)
 		.then((response) => {
         	if(response.ok === true) {
@@ -89,6 +91,7 @@ export default class form extends React.Component {
     }
     getValueList()
     {
+        console.log(4)
         Api.getNoAuth('values/form/no-auth/'+this.props.match.params.id)
 		.then((response) => {
         	if(response.ok === true) {
@@ -124,6 +127,7 @@ export default class form extends React.Component {
     }
     getVisitorCounter()
     {
+        console.log(5)
         Api.getNoAuth('form-counter/form/'+this.props.match.params.id)
 		.then((response) => {
         	if(response.ok === true) {
@@ -195,13 +199,17 @@ export default class form extends React.Component {
     }
     
   render() {
-    var valuesArray = []; 
+         var fieldsArray = [];
+        var valuesArray = [];     
 
-      var fieldarray = this.state.fieldList.map ( (data, index) =>
-        <th key={index}>{data.nama}</th>
-    
-        )
-    
+        this.state.fieldList.map((field) =>
+                fieldsArray.push(
+                    <td key={field.id}>
+                        {field.keterangan}
+                    </td>
+                )
+            );
+        
         var rowsmap = {}
         
         this.state.valueList.forEach( v => {
@@ -209,13 +217,14 @@ export default class form extends React.Component {
             arr.push(v);
             rowsmap[v.group] = arr;
         })
-
+        
         var rows = Object.keys(rowsmap).map( k => rowsmap[k]);
 
         valuesArray = rows.filter( v => this.state.fieldList.map( f => f.id).indexOf(v.id_field)).map( (row, i)=> {
-                return ( 
+            var uniqueID = Date.now()    
+            return ( 
                 
-                <tr key={Date.now()}>
+                <tr key={uniqueID + '_tr'}>
                     <td>{i + 1}</td>
                     {
                         this.state.fieldList.map( (f, i) => {
@@ -223,7 +232,7 @@ export default class form extends React.Component {
                         }).map(f => {
                             if(!f) {
                                 return (
-                                    <td key={Date.now()}>kosong</td>
+                                    <td key={uniqueID + '+_td'}>kosong</td>
                                 )
                             }
                             return (
@@ -236,6 +245,8 @@ export default class form extends React.Component {
                     )
             }
         )
+
+    // console.log(valuesArray)
 
     return (
         <div className="container">
@@ -267,7 +278,7 @@ export default class form extends React.Component {
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                {fieldarray}
+                                                {fieldsArray}
                                             </tr>
                                         </thead>
                                         <tbody>
