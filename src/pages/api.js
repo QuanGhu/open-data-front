@@ -1,4 +1,5 @@
 var $ = require('jquery');
+require('datatables.net');
 var api_base_url = 'http://185.201.8.164:3001/v1/';
 // var api_base_url = 'https://private.kintis.id/api/v1/';
 const jquery = window.$;
@@ -81,6 +82,41 @@ module.exports = {
 
 		return ajax
     },
+
+    loadDataTable(component, columns, columnDefs, api, table='#table-data'){
+		$.fn.dataTable.ext.errMode = 'none';
+	  	var dt = $(table).on( 'error.dt', function ( e, settings, techNote, message ) {
+				console.log( 'An error has been reported by DataTables: ', message );
+			}).DataTable({
+	  		columnDefs: columnDefs,
+	  		destroy: true,
+		    ajax: {
+		        url: api_base_url+api,
+		        type: 'GET',
+                dataType: 'json',
+		        beforeSend: function(xhr){
+		            xhr.setRequestHeader("Authorization", localStorage.token);
+		        }
+		    },
+		    fixedHeader: {
+	            header: true,
+	            footer: true
+	        },
+			"columns": columns
+		});
+		$(table+' tbody').on( 'click', 'td button', function () {
+			var parent = $(this).parent().get( 0 );
+			var parent1 = $(parent).parent().get( 0 );
+			var row = dt.row(parent1);
+
+		    if($(this).hasClass('delete')) {
+				component.delete(row.data());
+			}else if($(this).hasClass('edit')) {
+				component.edit(row.data());
+			}
+
+		});
+	},
     
 	notifMessage(message,type){
 		jquery.notify({
