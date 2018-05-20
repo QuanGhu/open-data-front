@@ -63,7 +63,7 @@ export default class index extends React.Component {
                   render(
                     <a style={{ cursor: 'pointer' }}
                       onClick={() => this.props.history.push('/organisasi/dataset/opd/'+cellData.id_opd) }>
-                      Liat Data
+                      Lihat Data
                     </a>, td),
             }
         ];
